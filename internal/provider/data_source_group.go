@@ -14,12 +14,12 @@ func dataSourceGroupMember() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"pk": {
-				Type:         schema.TypeInt,
-				Computed:     true,
+				Type:     schema.TypeInt,
+				Computed: true,
 			},
 			"username": {
-				Type:         schema.TypeString,
-				Computed:     true,
+				Type:     schema.TypeString,
+				Computed: true,
 			},
 			"name": {
 				Type:     schema.TypeString,
@@ -59,8 +59,8 @@ func dataSourceGroup() *schema.Resource {
 		Description: "Get groups by pk or name",
 		Schema: map[string]*schema.Schema{
 			"pk": {
-				Type:     schema.TypeString,
-				Optional: true,
+				Type:         schema.TypeString,
+				Optional:     true,
 				ExactlyOneOf: []string{"pk", "name"},
 			},
 			"num_pk": {
@@ -68,8 +68,8 @@ func dataSourceGroup() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
-				Optional: true,
+				Type:         schema.TypeString,
+				Optional:     true,
 				ExactlyOneOf: []string{"pk", "name"},
 			},
 			"is_superuser": {
@@ -98,7 +98,7 @@ func dataSourceGroup() *schema.Resource {
 			"users_obj": {
 				Type:     schema.TypeList,
 				Computed: true,
-				Elem: dataSourceGroupMember(),
+				Elem:     dataSourceGroupMember(),
 			},
 		},
 	}
@@ -106,15 +106,15 @@ func dataSourceGroup() *schema.Resource {
 
 func mapFromGroupMember(member api.GroupMember) (map[string]interface{}, error) {
 	m := map[string]interface{}{
-		"pk": int(member.GetPk()),
-		"username": member.GetUsername(),
-		"name": member.GetName(),
-		"is_active": member.GetIsActive(),
+		"pk":         int(member.GetPk()),
+		"username":   member.GetUsername(),
+		"name":       member.GetName(),
+		"is_active":  member.GetIsActive(),
 		"last_login": "",
-		"email": member.GetEmail(),
-		"avatar": member.GetAvatar(),
+		"email":      member.GetEmail(),
+		"avatar":     member.GetAvatar(),
 		"attributes": "",
-		"uid": member.GetUid(),
+		"uid":        member.GetUid(),
 	}
 
 	if t, ok := member.GetLastLoginOk(); ok && t != nil {
@@ -134,15 +134,15 @@ func mapFromGroupMember(member api.GroupMember) (map[string]interface{}, error) 
 
 func mapFromGroup(group api.Group) (map[string]interface{}, error) {
 	m := map[string]interface{}{
-		"pk": group.GetPk(),
-		"num_pk": int(group.GetNumPk()),
-		"name": group.GetName(),
+		"pk":           group.GetPk(),
+		"num_pk":       int(group.GetNumPk()),
+		"name":         group.GetName(),
 		"is_superuser": group.GetIsSuperuser(),
-		"parent": group.GetParent(),
-		"parent_name": group.GetParentName(),
-		"users": []int{},
-		"attributes": "",
-		"users_obj": []map[string]interface{}{},
+		"parent":       group.GetParent(),
+		"parent_name":  group.GetParentName(),
+		"users":        []int{},
+		"attributes":   "",
+		"users_obj":    []map[string]interface{}{},
 	}
 
 	b, err := json.Marshal(group.GetAttributes())
