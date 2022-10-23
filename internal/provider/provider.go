@@ -67,6 +67,7 @@ func Provider(version string, testing bool) *schema.Provider {
 			"authentik_event_rule":                    tr(resourceEventRule),
 			"authentik_group":                         tr(resourceGroup),
 			"authentik_outpost":                       tr(resourceOutpost),
+			"authentik_outpost_provider":              tr(resourceOutpostProvider),
 			"authentik_policy_binding":                tr(resourcePolicyBinding),
 			"authentik_policy_dummy":                  tr(resourcePolicyDummy),
 			"authentik_policy_event_matcher":          tr(resourcePolicyEventMatcher),
@@ -116,6 +117,8 @@ func Provider(version string, testing bool) *schema.Provider {
 		DataSourcesMap: map[string]*schema.Resource{
 			"authentik_certificate_key_pair":  td(dataSourceCertificateKeyPair),
 			"authentik_flow":                  td(dataSourceFlow),
+			"authentik_outpost":               td(dataSourceOutpost),
+			"authentik_outposts":              td(dataSourceOutposts),
 			"authentik_stage":                 td(dataSourceStage),
 			"authentik_source":                td(dataSourceSource),
 			"authentik_user":                  td(dataSourceUser),
